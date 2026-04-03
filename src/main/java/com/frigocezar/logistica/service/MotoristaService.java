@@ -4,8 +4,6 @@ import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.mapper.MotoristaMapper;
 import com.frigocezar.logistica.model.MotoristaModel;
 import com.frigocezar.logistica.repository.MotoristaRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,11 +47,24 @@ public class MotoristaService {
             return null;
         }
     }
+    // atualizar o motorista por id
 
-    public MotoristaDTO atualizarMotorista(MotoristaDTO motoristaDTO) {
+    public MotoristaDTO atualizarMotorista(Long id, MotoristaDTO motoristaDTO) {
+        Optional<MotoristaModel> motoristaExistente = motoristaRepository.findById(id);
+        if (motoristaExistente.isPresent()) {
+            MotoristaModel motorista = motoristaExistente.get();
+            motorista.setNome(motoristaDTO.getNome());
+            motorista.setCnh(motoristaDTO.getCnh());
+            motorista.setCpf(motoristaDTO.getCpf());
 
+            MotoristaModel motoristaAtualizado = motoristaRepository.save(motorista);
+
+            return motoristaMapper.map(motoristaAtualizado);
+
+        }
+        return null;
     }
-
+    // Deletar Por Id
     public void deleteMotoristaPorId(Long id) {
         motoristaRepository.deleteById(id);
     }
