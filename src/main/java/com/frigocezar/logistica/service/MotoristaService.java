@@ -21,7 +21,7 @@ public class MotoristaService {
         this.motoristaMapper = motoristaMapper;
     }
 
-    //cadastra Motorista
+    //cadastrar Motorista
     public MotoristaDTO cadastrarMotorista(MotoristaDTO motoristaDTO) {
         MotoristaModel motoristaModel = motoristaMapper.map(motoristaDTO);
         MotoristaModel motorista = motoristaRepository.save(motoristaModel);
@@ -49,7 +49,7 @@ public class MotoristaService {
     }
     // atualizar o motorista por id
 
-    public MotoristaDTO atualizarMotorista(Long id, MotoristaDTO motoristaDTO) {
+    public MotoristaDTO atualizarMotoristaPorId(Long id, MotoristaDTO motoristaDTO) {
         Optional<MotoristaModel> motoristaExistente = motoristaRepository.findById(id);
         if (motoristaExistente.isPresent()) {
             MotoristaModel motorista = motoristaExistente.get();
@@ -65,7 +65,7 @@ public class MotoristaService {
         return null;
     }
     // Deletar Por Id
-    public void deleteMotoristaPorId(Long id) {
+    public void deletarMotoristaPorId(Long id) {
         motoristaRepository.deleteById(id);
     }
 }
