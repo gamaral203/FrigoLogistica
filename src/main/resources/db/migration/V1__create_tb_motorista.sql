@@ -1,0 +1,7 @@
+CREATE TABLE tb_motorista
+(
+    id   BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf  VARCHAR(11)  NOT NULL UNIQUE,
+    cnh  VARCHAR(9)   NOT NULL UNIQUE
+);
