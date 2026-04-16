@@ -52,10 +52,11 @@ public class MotoristaController {
 
         if (motoristaAtualizado != null) {
             return ResponseEntity.ok(motoristaAtualizado);
-        }
+        } else {
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Motorista não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Motorista não encontrado");
+        }
     }
 
     @DeleteMapping("/deletarPorId/{id}")
