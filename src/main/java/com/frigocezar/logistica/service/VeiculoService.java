@@ -22,7 +22,7 @@ public class VeiculoService {
     }
 
 
-    private VeiculoDTO criarVeiculo(VeiculoDTO veiculoDTO) {
+    public VeiculoDTO cadastrarVeiculo(VeiculoDTO veiculoDTO) {
         VeiculoModel veiculoModel = veiculoMapper.map(veiculoDTO);
         VeiculoModel veiculo = veiculoRepository.save(veiculoModel);
         return veiculoMapper.map(veiculo);
@@ -55,7 +55,7 @@ public class VeiculoService {
             veiculo.setPlaca(veiculoDTO.getPlaca());
             veiculo.setModelo(veiculoDTO.getModelo());
             veiculo.setTipoVeiculo(veiculoDTO.getTipoVeiculo());
-            veiculo.setRenvam(veiculoDTO.getRenvam());
+            veiculo.setRenavam(veiculoDTO.getRenavam());
             veiculo.setCor(veiculoDTO.getCor());
 
             VeiculoModel veiculoAtualizado = veiculoRepository.save(veiculo);

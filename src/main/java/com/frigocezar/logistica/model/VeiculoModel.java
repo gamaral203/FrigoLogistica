@@ -29,7 +29,7 @@ public class VeiculoModel {
     private String modelo;
 
     @Column(name = "renavam",length = 11, nullable = false, unique = true)
-    private String renvam;
+    private String renavam;
 
     @Column(name = "cor")
     private String cor;

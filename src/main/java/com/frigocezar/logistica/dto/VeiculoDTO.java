@@ -25,7 +25,7 @@ public class VeiculoDTO {
     private String modelo;
 
 
-    private String renvam;
+    private String renavam;
 
 
     private String cor;

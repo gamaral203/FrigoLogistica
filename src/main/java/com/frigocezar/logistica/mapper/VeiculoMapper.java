@@ -15,7 +15,7 @@ public class VeiculoMapper {
         veiculoModel.setPlaca(veiculoDTO.getPlaca());
         veiculoModel.setModelo(veiculoDTO.getModelo());
         veiculoModel.setCor(veiculoDTO.getCor());
-        veiculoModel.setRenvam(veiculoDTO.getRenvam());
+        veiculoModel.setRenavam(veiculoDTO.getRenavam());
         return veiculoModel;
     }
 
@@ -27,7 +27,7 @@ public class VeiculoMapper {
         veiculoDTO.setPlaca(veiculoModel.getPlaca());
         veiculoDTO.setModelo(veiculoModel.getModelo());
         veiculoDTO.setCor(veiculoModel.getCor());
-        veiculoDTO.setRenvam(veiculoModel.getRenvam());
+        veiculoDTO.setRenavam(veiculoModel.getRenavam());
         return veiculoDTO;
     }
 }
