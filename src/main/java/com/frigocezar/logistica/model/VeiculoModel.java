@@ -1,15 +1,17 @@
 package com.frigocezar.logistica.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_veiculo")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class VeiculoModel {
 
     @Id
@@ -33,5 +35,10 @@ public class VeiculoModel {
 
     @Column(name = "cor")
     private String cor;
+
+
+    @ManyToMany(mappedBy = "veiculos")
+    @JsonIgnore
+    private List<MotoristaModel> motoristas;
 
 }

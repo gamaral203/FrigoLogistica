@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -16,4 +18,6 @@ public class MotoristaDTO {
     private String cpf;
 
     private String cnh;
+
+    private List<Long> veiculosIds;
 }

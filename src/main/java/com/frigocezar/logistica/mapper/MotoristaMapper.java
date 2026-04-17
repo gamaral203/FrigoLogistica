@@ -2,6 +2,7 @@ package com.frigocezar.logistica.mapper;
 
 import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.model.MotoristaModel;
+import com.frigocezar.logistica.model.VeiculoModel;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +23,7 @@ public class MotoristaMapper {
         motoristaDTO.setNome(motoristaModel.getNome());
         motoristaDTO.setCpf(motoristaModel.getCpf());
         motoristaDTO.setCnh(motoristaModel.getCnh());
+
         return motoristaDTO;
     }
 }

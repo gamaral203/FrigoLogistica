@@ -1,6 +1,7 @@
 package com.frigocezar.logistica.mapper;
 
 import com.frigocezar.logistica.dto.VeiculoDTO;
+import com.frigocezar.logistica.model.MotoristaModel;
 import com.frigocezar.logistica.model.VeiculoModel;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,7 @@ public class VeiculoMapper {
         veiculoDTO.setModelo(veiculoModel.getModelo());
         veiculoDTO.setCor(veiculoModel.getCor());
         veiculoDTO.setRenavam(veiculoModel.getRenavam());
+
         return veiculoDTO;
     }
 }
