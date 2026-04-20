@@ -2,7 +2,6 @@ package com.frigocezar.logistica.mapper;
 
 import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.model.MotoristaModel;
-import com.frigocezar.logistica.model.VeiculoModel;
 import org.springframework.stereotype.Component;
 
 @Component

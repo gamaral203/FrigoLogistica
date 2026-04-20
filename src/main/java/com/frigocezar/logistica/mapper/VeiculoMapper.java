@@ -5,6 +5,9 @@ import com.frigocezar.logistica.model.MotoristaModel;
 import com.frigocezar.logistica.model.VeiculoModel;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class VeiculoMapper {
 
@@ -17,6 +20,19 @@ public class VeiculoMapper {
         veiculoModel.setModelo(veiculoDTO.getModelo());
         veiculoModel.setCor(veiculoDTO.getCor());
         veiculoModel.setRenavam(veiculoDTO.getRenavam());
+
+        List<MotoristaModel> motoristas = new ArrayList<>();
+
+        if (veiculoDTO.getMotoristasIds() != null) {
+            for (Long id : veiculoDTO.getMotoristasIds()) {
+                MotoristaModel motorista = new MotoristaModel();
+                motorista.setId(id);
+                motoristas.add(motorista);
+            }
+        }
+
+        veiculoModel.setMotoristas(motoristas);
+
         return veiculoModel;
     }
 
@@ -29,6 +45,17 @@ public class VeiculoMapper {
         veiculoDTO.setModelo(veiculoModel.getModelo());
         veiculoDTO.setCor(veiculoModel.getCor());
         veiculoDTO.setRenavam(veiculoModel.getRenavam());
+
+        List<Long> motoristasIds = new ArrayList<>();
+
+        if (veiculoModel.getMotoristas() != null) {
+            for (MotoristaModel motorista : veiculoModel.getMotoristas()) {
+                motoristasIds.add(motorista.getId());
+            }
+        }
+
+        veiculoDTO.setMotoristasIds(motoristasIds);
+
 
         return veiculoDTO;
     }
