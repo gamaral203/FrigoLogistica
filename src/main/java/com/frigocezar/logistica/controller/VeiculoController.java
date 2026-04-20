@@ -25,7 +25,9 @@ public class VeiculoController {
     @PostMapping("/criar")
     public ResponseEntity<VeiculoDTO> cadastrarVeiculo(@RequestBody VeiculoDTO veiculo) {
         VeiculoDTO veiculoDTO = veiculoService.cadastrarVeiculo(veiculo);
-        return ResponseEntity.ok(veiculoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(veiculoDTO);
+
     }
 
     @GetMapping("/listar")
