@@ -26,7 +26,7 @@ public class VeiculoController {
     @PostMapping("/criar")
     public ResponseEntity<VeiculoDTO> cadastrarVeiculo(@RequestBody VeiculoDTO veiculo) {
 
-        log.info("cadastrando Veiculo: {}", veiculo);
+        log.debug("cadastrando Veiculo: {}", veiculo);
 
         VeiculoDTO veiculoDTO = veiculoService.cadastrarVeiculo(veiculo);
 
@@ -40,7 +40,7 @@ public class VeiculoController {
     @GetMapping("/listar")
     public ResponseEntity<List<VeiculoDTO>> listarVeiculo() {
 
-        log.info("Listando veiculos: ");
+        log.debug("Listando veiculos: ");
         List<VeiculoDTO> veiculosDTO = veiculoService.listarVeiculos();
         log.info("quantidade de veiculos encontrados: {}", veiculosDTO.size());
         return ResponseEntity.ok(veiculosDTO);
@@ -49,7 +49,7 @@ public class VeiculoController {
     @GetMapping("/buscarPorId/{id}")
     public ResponseEntity<?> buscarVeiculoPorID(@PathVariable Long id) {
 
-        log.info("Buscando Veiculo por id: {}", id);
+        log.debug("Buscando Veiculo por id: {}", id);
         VeiculoDTO veiculoDTO = veiculoService.buscarVeiculoPorId(id);
 
         if (veiculoDTO != null) {
@@ -65,7 +65,7 @@ public class VeiculoController {
     @PutMapping("/EditarPorId/{id}")
     public ResponseEntity<?> editarVeiculoPorID(@PathVariable Long id, @RequestBody VeiculoDTO veiculo) {
 
-        log.info("Editando Veiculo por id: {}", id);
+        log.debug("Editando Veiculo por id: {}", id);
         VeiculoDTO veiculoAtualizado = veiculoService.buscarVeiculoPorId(id);
 
         if (veiculoAtualizado != null) {
@@ -80,10 +80,14 @@ public class VeiculoController {
 
     @DeleteMapping("/deletarPorId/{id}")
     public ResponseEntity<String> deletarVeiculoPorID(@PathVariable Long id) {
-        log.info("Deletando Veiculo por id: {}", id);
+        log.debug("Deletando Veiculo por id: {}", id);
+
+
         if (veiculoService.buscarVeiculoPorId(id) != null) {
             veiculoService.DeletarVeiculo(id);
+
             log.info("Veiculo deletado com sucesso: {}", id);
+
             return ResponseEntity.status(HttpStatus.OK)
                     .body("Veiculo deletado com sucesso");
         } else {
