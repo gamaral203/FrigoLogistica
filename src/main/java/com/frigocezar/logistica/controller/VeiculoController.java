@@ -84,7 +84,7 @@ public class VeiculoController {
 
 
         if (veiculoService.buscarVeiculoPorId(id) != null) {
-            veiculoService.DeletarVeiculo(id);
+            veiculoService.deletarVeiculo(id);
 
             log.info("Veiculo deletado com sucesso: {}", id);
 

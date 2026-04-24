@@ -57,7 +57,7 @@ public class VeiculoService {
         }
     }
 
-    public VeiculoDTO AtualizarVeiculo(Long id, VeiculoDTO veiculoDTO) {
+    public VeiculoDTO atualizarVeiculo(Long id, VeiculoDTO veiculoDTO) {
         Optional<VeiculoModel> veiculoExistente = veiculoRepository.findById(id);
         log.debug("Atualizando Veiculo com id: {}", id);
 
@@ -82,7 +82,7 @@ public class VeiculoService {
         }
     }
 
-    public void DeletarVeiculo(Long id) {
+    public void deletarVeiculo(Long id) {
         log.debug("Deletando Veiculo com id: {}", id);
         veiculoRepository.deleteById(id);
         log.info("Veiculo deletado com sucesso id: {}", id);
