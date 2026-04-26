@@ -2,7 +2,11 @@ package com.frigocezar.logistica.mapper;
 
 import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.model.MotoristaModel;
+import com.frigocezar.logistica.model.VeiculoModel;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class MotoristaMapper {
@@ -22,6 +26,15 @@ public class MotoristaMapper {
         motoristaDTO.setNome(motoristaModel.getNome());
         motoristaDTO.setCpf(motoristaModel.getCpf());
         motoristaDTO.setCnh(motoristaModel.getCnh());
+
+        List<Long> veiculosIds = new ArrayList<>();
+
+        if (motoristaModel.getVeiculos() != null) {
+            for (VeiculoModel veiculo : motoristaModel.getVeiculos()) {
+                veiculosIds.add(veiculo.getId());
+            }
+        }
+        motoristaDTO.setVeiculosIds(veiculosIds);
 
         return motoristaDTO;
     }

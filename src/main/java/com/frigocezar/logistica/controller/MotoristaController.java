@@ -2,6 +2,10 @@ package com.frigocezar.logistica.controller;
 
 import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.service.MotoristaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +16,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/motoristas")
+@Tag(name = "Moristas", description = "Gerenciamento de Motoristas" )
 public class MotoristaController {
 
     private final MotoristaService motoristaService;
@@ -19,6 +24,15 @@ public class MotoristaController {
     public MotoristaController(MotoristaService motoristaService) {
         this.motoristaService = motoristaService;
     }
+
+
+
+    @Operation(summary = "Criar um novo motorista", description = "Rota para criação de um novo motorista")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Motorista cadastrado com sucesso!" ),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos" ),
+            @ApiResponse(responseCode = "409", description = "CPF ou CNH já cadastrado")
+    })
 
     @PostMapping("/cadastrar")
     public ResponseEntity<MotoristaDTO> cadastrarMotorista(@RequestBody MotoristaDTO motorista) {
@@ -33,6 +47,13 @@ public class MotoristaController {
                 .body(motoristaDTO);
     }
 
+
+    @Operation(summary = "Listar todos os motoristas", description = "Rota que lista todos os motoristas cadastrados")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Motorista encontrado"),
+            @ApiResponse(responseCode = "404", description = "Motorista não encontrado")
+    })
+
     @GetMapping("/listar")
     public ResponseEntity<List<MotoristaDTO>> listarMotorista() {
 
@@ -44,6 +65,13 @@ public class MotoristaController {
 
         return ResponseEntity.ok(motoristas);
     }
+
+
+    @Operation(summary = "buscar motorista por Id", description = "Rota que busca o motoristas pelo seu id")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Motorista encontrado"),
+            @ApiResponse(responseCode = "404", description = "Motorista não encontrado")
+    })
 
     @GetMapping("buscarPorId/{id}")
     public ResponseEntity<?> buscarMotoristaPorId(@PathVariable Long id) {
@@ -62,6 +90,13 @@ public class MotoristaController {
                     .body("Id " + id + " nao encontrado");
         }
     }
+
+    @Operation(summary = "Atualizar motorista por Id", description = "Verifica se o motorista existe e atualiza seus dados")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Atualizado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+            @ApiResponse(responseCode = "404", description = "Motorista não encontrado")
+    })
 
     @PutMapping("atualizarPorId/{id}")
     public ResponseEntity<?> atualizarMotorista(@PathVariable Long id,
@@ -84,6 +119,12 @@ public class MotoristaController {
                     .body("Motorista não encontrado");
         }
     }
+
+    @Operation(summary = "Deletar motorista", description = "Verifica s eo motorista existe no banco de dados e deleta")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Deletado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Motorista não encontrado")
+    })
 
     @DeleteMapping("/deletarPorId/{id}")
     public ResponseEntity<String> deletarMotoristaPorId(@PathVariable Long id) {

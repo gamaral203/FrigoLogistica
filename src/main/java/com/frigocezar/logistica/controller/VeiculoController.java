@@ -66,7 +66,7 @@ public class VeiculoController {
     public ResponseEntity<?> editarVeiculoPorID(@PathVariable Long id, @RequestBody VeiculoDTO veiculo) {
 
         log.debug("Editando Veiculo por id: {}", id);
-        VeiculoDTO veiculoAtualizado = veiculoService.buscarVeiculoPorId(id);
+        VeiculoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(id,veiculo);
 
         if (veiculoAtualizado != null) {
             log.info("Veículo editado com sucesso: {}", veiculoAtualizado);

@@ -25,7 +25,7 @@ public class MotoristaService {
 
     //cadastrar Motorista
     public MotoristaDTO cadastrarMotorista(MotoristaDTO motoristaDTO) {
-        log.debug("Cadastrando motorista: " + motoristaDTO);
+        log.debug("Cadastrando motorista: {} ", motoristaDTO);
         MotoristaModel motoristaModel = motoristaMapper.map(motoristaDTO);
         MotoristaModel motorista = motoristaRepository.save(motoristaModel);
         log.info("Motorista cadastrado com sucesso. id: {} ", motorista.getId());
