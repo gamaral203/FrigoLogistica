@@ -17,6 +17,17 @@ public class MotoristaMapper {
         motoristaModel.setNome(motoristaDTO.getNome());
         motoristaModel.setCpf(motoristaDTO.getCpf());
         motoristaModel.setCnh(motoristaDTO.getCnh());
+
+        List<VeiculoModel> veiculos = new ArrayList<>();
+        if (motoristaDTO.getVeiculosIds() != null) {
+            for (Long id : motoristaDTO.getVeiculosIds()) {
+                VeiculoModel veiculo = new VeiculoModel();
+                veiculo.setId(id);
+                veiculos.add(veiculo);
+            }
+        }
+        motoristaModel.setVeiculos(veiculos);
+
         return motoristaModel;
     }
 
