@@ -25,7 +25,7 @@ public class VeiculoService {
 
 
     public VeiculoDTO cadastrarVeiculo(VeiculoDTO veiculoDTO) {
-        log.debug("Iniciando cadastro de Veiculo", veiculoDTO);
+        log.debug("Iniciando cadastro de Veiculo: {} ", veiculoDTO);
 
         VeiculoModel veiculoModel = veiculoMapper.map(veiculoDTO);
         VeiculoModel veiculo = veiculoRepository.save(veiculoModel);
