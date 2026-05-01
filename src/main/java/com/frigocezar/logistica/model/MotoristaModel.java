@@ -25,7 +25,7 @@ public class MotoristaModel {
     @Column(length = 11, nullable = false, name = "cpf", unique = true )
     private String cpf;
 
-    @Column(length = 9, nullable = false, name = "cnh", unique = true )
+    @Column(length = 11, nullable = false, name = "cnh", unique = true )
     private String cnh;
 
 

@@ -1,0 +1,1 @@
+ALTER TABLE tb_motorista ALTER COLUMN cnh TYPE VARCHAR(11);
