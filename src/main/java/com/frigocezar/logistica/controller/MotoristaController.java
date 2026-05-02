@@ -6,9 +6,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/motoristas")
+@Validated
 @Tag(name = "Motoristas", description = "Gerenciamento de Motoristas" )
 public class MotoristaController {
 
@@ -35,7 +39,7 @@ public class MotoristaController {
     })
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<MotoristaDTO> cadastrarMotorista(@RequestBody MotoristaDTO motorista) {
+    public ResponseEntity<MotoristaDTO> cadastrarMotorista(@RequestBody @Valid MotoristaDTO motorista) {
 
         log.info("cadastrando Motorista: {} ", motorista);
 
@@ -99,8 +103,8 @@ public class MotoristaController {
     })
 
     @PutMapping("atualizarPorId/{id}")
-    public ResponseEntity<?> atualizarMotorista(@PathVariable Long id,
-                                                @RequestBody MotoristaDTO motoristaDTO) {
+    public ResponseEntity<?> atualizarMotorista(@PathVariable @Positive Long id,
+                                                @RequestBody @Valid MotoristaDTO motoristaDTO) {
         log.info("Buscando motorista por ID: {}", id);
 
         MotoristaDTO motoristaAtualizado = motoristaService.atualizarMotoristaPorId(id, motoristaDTO);
