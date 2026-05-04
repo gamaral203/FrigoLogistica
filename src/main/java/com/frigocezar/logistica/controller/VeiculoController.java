@@ -7,16 +7,19 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/veiculo")
+@RequestMapping("/veiculos")
+@Validated
 @Tag(name = "veiculos", description = "Gerenciamento de veiculos")
 public class VeiculoController {
 
@@ -35,7 +38,7 @@ public class VeiculoController {
     })
 
     @PostMapping("/criar")
-    public ResponseEntity<VeiculoDTO> cadastrarVeiculo(@RequestBody VeiculoDTO veiculo) {
+    public ResponseEntity<VeiculoDTO> cadastrarVeiculo(@RequestBody @Valid VeiculoDTO veiculo) {
 
         log.debug("cadastrando Veiculo: {}", veiculo);
 
@@ -93,7 +96,8 @@ public class VeiculoController {
     })
 
     @PutMapping("/EditarPorId/{id}")
-    public ResponseEntity<?> editarVeiculoPorID(@PathVariable Long id, @RequestBody VeiculoDTO veiculo) {
+    public ResponseEntity<?> editarVeiculoPorID(@PathVariable @Valid Long id,
+                                                @RequestBody VeiculoDTO veiculo) {
 
         log.debug("Editando Veiculo por id: {}", id);
         VeiculoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculo);
