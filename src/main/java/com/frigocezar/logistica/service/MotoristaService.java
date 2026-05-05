@@ -1,6 +1,7 @@
 package com.frigocezar.logistica.service;
 
 import com.frigocezar.logistica.dto.MotoristaDTO;
+import com.frigocezar.logistica.exceptions.MotoristaNotFoundException;
 import com.frigocezar.logistica.mapper.MotoristaMapper;
 import com.frigocezar.logistica.model.MotoristaModel;
 import com.frigocezar.logistica.repository.MotoristaRepository;
@@ -54,7 +55,7 @@ public class MotoristaService {
             return motoristaMapper.map(motoristaModel.get());
         } else {
             log.warn("Motorista não encontrado. id: {}", id);
-            return null;
+            throw new MotoristaNotFoundException();
         }
     }
     // atualizar o motorista por id
@@ -75,7 +76,7 @@ public class MotoristaService {
             return motoristaMapper.map(motoristaAtualizado);
         } else {
             log.warn("Motorista não encontrado. id: {}", id);
-            return null;
+            throw new MotoristaNotFoundException();
         }
     }
 
