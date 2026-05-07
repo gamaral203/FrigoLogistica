@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/motoristas")
 @Validated
-@Tag(name = "Motoristas", description = "Gerenciamento de Motoristas" )
+@Tag(name = "Motoristas", description = "Gerenciamento de Motoristas")
 public class MotoristaController {
 
     private final MotoristaService motoristaService;
@@ -30,11 +30,10 @@ public class MotoristaController {
     }
 
 
-
     @Operation(summary = "Criar um novo motorista", description = "Rota para criação de um novo motorista")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Motorista cadastrado com sucesso!" ),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos" ),
+            @ApiResponse(responseCode = "201", description = "Motorista cadastrado com sucesso!"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
             @ApiResponse(responseCode = "409", description = "CPF ou CNH já cadastrado")
     })
 
@@ -78,22 +77,12 @@ public class MotoristaController {
     })
 
     @GetMapping("buscarPorId/{id}")
-    public ResponseEntity<?> buscarMotoristaPorId(@PathVariable Long id) {
-
+    public ResponseEntity<MotoristaDTO> buscarMotoristaPorId(@PathVariable Long id) {
         log.info("Buscando motorista por ID: {}", id);
-
         MotoristaDTO motoristaDTO = motoristaService.buscarMotoristaPorId(id);
-
-        if (motoristaDTO != null) {
-            return ResponseEntity.ok(motoristaDTO);
-        } else {
-
-            log.warn("motorista com o id: {}", id);
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Id " + id + " nao encontrado");
-        }
+        return ResponseEntity.ok(motoristaDTO);
     }
+
 
     @Operation(summary = "Atualizar motorista por Id", description = "Verifica se o motorista existe e atualiza seus dados")
     @ApiResponses({
@@ -103,25 +92,12 @@ public class MotoristaController {
     })
 
     @PutMapping("atualizarPorId/{id}")
-    public ResponseEntity<?> atualizarMotorista(@PathVariable @Positive Long id,
-                                                @RequestBody @Valid MotoristaDTO motoristaDTO) {
-        log.info("Buscando motorista por ID: {}", id);
+    public ResponseEntity<MotoristaDTO> atualizarMotorista(@PathVariable @Positive Long id,
+                                                           @RequestBody @Valid MotoristaDTO motoristaDTO) {
 
+        log.info("Atualizando Motorista: {}", id);
         MotoristaDTO motoristaAtualizado = motoristaService.atualizarMotoristaPorId(id, motoristaDTO);
-
-        if (motoristaAtualizado != null) {
-
-            log.info("Motorista atualizado com sucesso. ID: {} ", id);
-
-            return ResponseEntity.ok(motoristaAtualizado);
-
-        } else {
-
-            log.warn("não foi possível encontrar o motorista com id : {}", id);
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Motorista não encontrado");
-        }
+        return ResponseEntity.ok(motoristaAtualizado);
     }
 
     @Operation(summary = "Deletar motorista", description = "Verifica s eo motorista existe no banco de dados e deleta")
@@ -132,19 +108,10 @@ public class MotoristaController {
 
     @DeleteMapping("/deletarPorId/{id}")
     public ResponseEntity<String> deletarMotoristaPorId(@PathVariable Long id) {
-        log.info("Buscando motorista por ID: {}", id);
+        log.info("Deletando motorista por ID: {}", id);
 
-        if (motoristaService.buscarMotoristaPorId(id) != null) {
-            motoristaService.deletarMotoristaPorId(id);
+        motoristaService.deletarMotoristaPorId(id);
 
-            log.info("Motorista deletado com sucesso. ID: {} ", id);
-
-            return ResponseEntity.ok("Motorista deletado com sucesso");
-        } else {
-            log.warn("não foi possível encontrar o motorista com id : {}", id);
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Id " + id + " nao encontrado");
-        }
+        return ResponseEntity.ok("Motorista deletado com sucesso");
     }
 }

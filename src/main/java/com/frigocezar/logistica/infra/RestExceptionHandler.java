@@ -12,12 +12,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(MotoristaNotFoundException.class)
-    private ResponseEntity<String> motoristaNotFoundHandler(MotoristaNotFoundException exception){
+    public ResponseEntity<String> motoristaNotFoundHandler(MotoristaNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Motorista não encontrado");
     }
 
     @ExceptionHandler(VeiculoNotFoundException.class)
-    private ResponseEntity<String> veiculoNotFoundHandler(VeiculoNotFoundException exception){
+    public ResponseEntity<String> veiculoNotFoundHandler(VeiculoNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Veiculo não encontrado");
     }
 
