@@ -1,5 +1,6 @@
 package com.frigocezar.logistica.controller;
 
+import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.dto.VeiculoDTO;
 import com.frigocezar.logistica.service.MotoristaService;
 import com.frigocezar.logistica.service.VeiculoService;
@@ -74,18 +75,11 @@ public class VeiculoController {
 
     @GetMapping("/buscarPorId/{id}")
     public ResponseEntity<?> buscarVeiculoPorID(@PathVariable Long id) {
-
         log.debug("Buscando Veiculo por id: {}", id);
-        VeiculoDTO veiculoDTO = veiculoService.buscarVeiculoPorId(id);
 
-        if (veiculoDTO != null) {
-            log.info("Veículo encontrado com sucesso: {}", veiculoDTO);
-            return ResponseEntity.ok(veiculoDTO);
-        } else {
-            log.warn("Veículo não encontrado, tente novamente");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Veículo com o Id " + id + " não encontrado");
-        }
+        VeiculoDTO veiculoDTO = veiculoService.buscarVeiculoPorId(id);
+        return ResponseEntity.ok(veiculoDTO);
+
     }
 
     @Operation(summary = "Editar veículo por ID", description = "Atualiza os dados de um veículo existente")
@@ -96,21 +90,15 @@ public class VeiculoController {
     })
 
     @PutMapping("/EditarPorId/{id}")
-    public ResponseEntity<?> editarVeiculoPorID(@PathVariable @Valid Long id,
-                                                @RequestBody VeiculoDTO veiculo) {
+    public ResponseEntity<VeiculoDTO> editarVeiculoPorID(@PathVariable @Valid Long id,
+                                                         @RequestBody VeiculoDTO veiculo) {
 
         log.debug("Editando Veiculo por id: {}", id);
-        VeiculoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculo);
 
-        if (veiculoAtualizado != null) {
-            log.info("Veículo editado com sucesso: {}", veiculoAtualizado);
-            return ResponseEntity.ok(veiculoAtualizado);
-        } else {
-            log.warn("Veículo não encontrado, tente novamente");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Id " + id + " não encontrado");
-        }
+        VeiculoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculo);
+        return ResponseEntity.ok(veiculoAtualizado);
     }
+
 
     @Operation(summary = "Deletar veículo por ID", description = "Remove um veículo do sistema pelo ID")
     @ApiResponses({
@@ -123,18 +111,12 @@ public class VeiculoController {
         log.debug("Deletando Veiculo por id: {}", id);
 
 
-        if (veiculoService.buscarVeiculoPorId(id) != null) {
-            veiculoService.deletarVeiculo(id);
+        veiculoService.deletarVeiculo(id);
 
-            log.info("Veiculo deletado com sucesso: {}", id);
+        log.info("Veiculo deletado com sucesso: {}", id);
 
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body("Veiculo deletado com sucesso");
-        } else {
-            log.warn("Não foi possível deletar veiculo, id não encontrado: {}", id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("id " + id + " não encontrado");
-        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Veiculo deletado com sucesso");
+
     }
-
 }

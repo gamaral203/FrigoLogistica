@@ -112,6 +112,8 @@ public class MotoristaController {
 
         motoristaService.deletarMotoristaPorId(id);
 
-        return ResponseEntity.ok("Motorista deletado com sucesso");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Motorista deletado com sucesso");
+
     }
 }

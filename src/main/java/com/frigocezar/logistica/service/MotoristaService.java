@@ -24,7 +24,7 @@ public class MotoristaService {
         this.motoristaMapper = motoristaMapper;
     }
 
-    //cadastrar Motorista
+
     public MotoristaDTO cadastrarMotorista(MotoristaDTO motoristaDTO) {
         log.debug("Cadastrando motorista: {} ", motoristaDTO);
         MotoristaModel motoristaModel = motoristaMapper.map(motoristaDTO);
@@ -33,7 +33,7 @@ public class MotoristaService {
         return motoristaMapper.map(motorista);
     }
 
-    //Listar Todos os motoristas
+
 
     public List<MotoristaDTO> listarMotoristas() {
 
@@ -46,7 +46,7 @@ public class MotoristaService {
                 .collect(Collectors.toList());
     }
 
-    //Buscar por ID
+
 
     public MotoristaDTO buscarMotoristaPorId(Long id) {
         log.debug("Buscando motorista por id: {}", id);
@@ -59,7 +59,7 @@ public class MotoristaService {
         log.info("Motorista encontrado com sucesso. id: {}", id);
         return motoristaMapper.map(motorista);
     }
-// atualizar o motorista por id
+
 
     public MotoristaDTO atualizarMotoristaPorId(Long id, MotoristaDTO motoristaDTO) {
         log.debug("Atualizando motorista por id: {}", id);
@@ -81,7 +81,7 @@ public class MotoristaService {
         return motoristaMapper.map(motoristaAtualizado);
     }
 
-    // Deletar Por Id
+
     public void deletarMotoristaPorId(Long id) {
         log.debug("Deletando motorista por id: {}", id);
         MotoristaModel motorista = motoristaRepository.findById(id)

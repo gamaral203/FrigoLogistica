@@ -48,44 +48,49 @@ public class VeiculoService {
 
     public VeiculoDTO buscarVeiculoPorId(Long id) {
         log.debug("Buscando veiculo por id: {}", id);
-        Optional<VeiculoModel> veiculo = veiculoRepository.findById(id);
-        if (veiculo.isPresent()) {
-            log.info("Veiculo encontrado com sucesso id: {}", id);
-            return veiculoMapper.map(veiculo.get());
-        } else {
-            log.warn("Veículo Não encontrado. id: {}", id);
-            throw new VeiculoNotFoundException();
-        }
+        VeiculoModel veiculo = veiculoRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Veículo Não encontrado. id: {}", id);
+                    return new VeiculoNotFoundException();
+                });
+        return veiculoMapper.map(veiculo);
     }
 
     public VeiculoDTO atualizarVeiculo(Long id, VeiculoDTO veiculoDTO) {
-        Optional<VeiculoModel> veiculoExistente = veiculoRepository.findById(id);
         log.debug("Atualizando Veiculo com id: {}", id);
 
-        if (veiculoExistente.isPresent()) {
-            VeiculoModel veiculo = veiculoExistente.get();
-            veiculo.setMarca(veiculoDTO.getMarca());
-            veiculo.setPlaca(veiculoDTO.getPlaca());
-            veiculo.setModelo(veiculoDTO.getModelo());
-            veiculo.setTipoVeiculo(veiculoDTO.getTipoVeiculo());
-            veiculo.setRenavam(veiculoDTO.getRenavam());
-            veiculo.setCor(veiculoDTO.getCor());
+        VeiculoModel veiculo = veiculoRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Veículo não encontrado. id: {}", id);
+                    return new VeiculoNotFoundException();
+                });
 
-            VeiculoModel veiculoAtualizado = veiculoRepository.save(veiculo);
 
-            log.info("Veiculo atualizado com sucesso id: {}", id);
+        veiculo.setMarca(veiculoDTO.getMarca());
+        veiculo.setPlaca(veiculoDTO.getPlaca());
+        veiculo.setModelo(veiculoDTO.getModelo());
+        veiculo.setTipoVeiculo(veiculoDTO.getTipoVeiculo());
+        veiculo.setRenavam(veiculoDTO.getRenavam());
+        veiculo.setCor(veiculoDTO.getCor());
 
-            return veiculoMapper.map(veiculoAtualizado);
+        VeiculoModel veiculoAtualizado = veiculoRepository.save(veiculo);
 
-        } else {
-            log.warn("Veículo não encontrado. id: {}", id);
-            throw new VeiculoNotFoundException();
-        }
+        log.info("Veiculo atualizado com sucesso id: {}", id);
+
+        return veiculoMapper.map(veiculo);
+
     }
 
     public void deletarVeiculo(Long id) {
         log.debug("Deletando Veiculo com id: {}", id);
+
+        VeiculoModel veiculo = veiculoRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Veiculo não encontrado. id: {}", id);
+                    return new VeiculoNotFoundException();
+                });
         veiculoRepository.deleteById(id);
+
         log.info("Veiculo deletado com sucesso id: {}", id);
     }
 }
