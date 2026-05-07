@@ -38,6 +38,7 @@ public class MotoristaService {
     public List<MotoristaDTO> listarMotoristas() {
 
         log.debug("Listando motoristas");
+
         List<MotoristaModel> motoristas = motoristaRepository.findAll();
         log.info("quantidade de motoristas encontrados : {}", motoristas.size());
         return motoristas.stream()
@@ -49,16 +50,16 @@ public class MotoristaService {
 
     public MotoristaDTO buscarMotoristaPorId(Long id) {
         log.debug("Buscando motorista por id: {}", id);
-        Optional<MotoristaModel> motoristaModel = motoristaRepository.findById(id);
-        if (motoristaModel.isPresent()) {
-            log.info("Motorista encontrado com sucesso. id: {}", id);
-            return motoristaMapper.map(motoristaModel.get());
-        } else {
-            log.warn("Motorista não encontrado. id: {}", id);
-            throw new MotoristaNotFoundException();
-        }
+
+        MotoristaModel motorista = motoristaRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Motorista não encontrado. id: {}", id);
+                    return new MotoristaNotFoundException();
+                });
+        log.info("Motorista encontrado com sucesso. id: {}", id);
+        return motoristaMapper.map(motorista);
     }
-    // atualizar o motorista por id
+// atualizar o motorista por id
 
     public MotoristaDTO atualizarMotoristaPorId(Long id, MotoristaDTO motoristaDTO) {
         log.debug("Atualizando motorista por id: {}", id);
