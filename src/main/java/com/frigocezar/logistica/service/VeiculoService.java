@@ -1,6 +1,7 @@
 package com.frigocezar.logistica.service;
 
 import com.frigocezar.logistica.dto.VeiculoDTO;
+import com.frigocezar.logistica.exceptions.VeiculoNotFoundException;
 import com.frigocezar.logistica.mapper.VeiculoMapper;
 import com.frigocezar.logistica.model.VeiculoModel;
 import com.frigocezar.logistica.repository.VeiculoRepository;
@@ -53,7 +54,7 @@ public class VeiculoService {
             return veiculoMapper.map(veiculo.get());
         } else {
             log.warn("Veículo Não encontrado. id: {}", id);
-            return null;
+            throw new VeiculoNotFoundException();
         }
     }
 
@@ -78,7 +79,7 @@ public class VeiculoService {
 
         } else {
             log.warn("Veículo não encontrado. id: {}", id);
-            return null;
+            throw new VeiculoNotFoundException();
         }
     }
 
