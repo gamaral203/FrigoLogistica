@@ -63,27 +63,32 @@ public class MotoristaService {
 
     public MotoristaDTO atualizarMotoristaPorId(Long id, MotoristaDTO motoristaDTO) {
         log.debug("Atualizando motorista por id: {}", id);
-        Optional<MotoristaModel> motoristaExistente = motoristaRepository.findById(id);
-        if (motoristaExistente.isPresent()) {
-            MotoristaModel motorista = motoristaExistente.get();
-            motorista.setNome(motoristaDTO.getNome());
-            motorista.setCnh(motoristaDTO.getCnh());
-            motorista.setCpf(motoristaDTO.getCpf());
 
-            MotoristaModel motoristaAtualizado = motoristaRepository.save(motorista);
+        MotoristaModel motorista = motoristaRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Motorista não encontrado. id: {}", id);
+                    return new MotoristaNotFoundException();
+                });
 
-            log.info("Motorista atualizado com sucesso. id: {}", id);
+        motorista.setNome(motoristaDTO.getNome());
+        motorista.setCnh(motoristaDTO.getCnh());
+        motorista.setCpf(motoristaDTO.getCpf());
 
-            return motoristaMapper.map(motoristaAtualizado);
-        } else {
-            log.warn("Motorista não encontrado. id: {}", id);
-            throw new MotoristaNotFoundException();
-        }
+        MotoristaModel motoristaAtualizado = motoristaRepository.save(motorista);
+
+        log.info("Motorista atualizado com sucesso. id: {}", id);
+
+        return motoristaMapper.map(motoristaAtualizado);
     }
 
     // Deletar Por Id
     public void deletarMotoristaPorId(Long id) {
         log.debug("Deletando motorista por id: {}", id);
+        MotoristaModel motorista = motoristaRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Motorista não encontrado. id: {}", id);
+                    return new MotoristaNotFoundException();
+                });
         motoristaRepository.deleteById(id);
         log.info("Motorista deletado com sucesso. id: {}", id);
     }
