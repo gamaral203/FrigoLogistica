@@ -2,9 +2,7 @@ package com.frigocezar.logistica.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,7 +10,8 @@ import java.util.List;
 @Table(name = "tb_motorista")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class MotoristaModel {
 
     @Id

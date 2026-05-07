@@ -19,12 +19,12 @@ import java.util.List;
 @Validated
 public class VeiculoController implements VeiculoControllerDoc {
 
-    private final MotoristaService motoristaService;
+
     private VeiculoService veiculoService;
 
-    public VeiculoController(VeiculoService veiculoService, MotoristaService motoristaService) {
+    public VeiculoController(VeiculoService veiculoService) {
         this.veiculoService = veiculoService;
-        this.motoristaService = motoristaService;
+
     }
 
     @PostMapping("/criar")

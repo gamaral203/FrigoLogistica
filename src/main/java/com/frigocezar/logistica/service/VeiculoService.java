@@ -77,7 +77,7 @@ public class VeiculoService {
 
         log.info("Veiculo atualizado com sucesso id: {}", id);
 
-        return veiculoMapper.map(veiculo);
+        return veiculoMapper.map(veiculoAtualizado);
 
     }
 
