@@ -3,10 +3,6 @@ package com.frigocezar.logistica.controller;
 import com.frigocezar.logistica.Docs.MotoristaControllerDoc;
 import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.service.MotoristaService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +24,6 @@ public class MotoristaController implements MotoristaControllerDoc {
     public MotoristaController(MotoristaService motoristaService) {
         this.motoristaService = motoristaService;
     }
-
-
 
 
     @PostMapping("/cadastrar")
