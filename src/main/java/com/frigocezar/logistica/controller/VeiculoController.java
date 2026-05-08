@@ -1,8 +1,7 @@
 package com.frigocezar.logistica.controller;
 
-import com.frigocezar.logistica.Docs.VeiculoControllerDoc;
+import com.frigocezar.logistica.docs.VeiculoControllerDoc;
 import com.frigocezar.logistica.dto.VeiculoDTO;
-import com.frigocezar.logistica.service.MotoristaService;
 import com.frigocezar.logistica.service.VeiculoService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;

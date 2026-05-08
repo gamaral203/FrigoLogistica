@@ -1,6 +1,6 @@
 package com.frigocezar.logistica.controller;
 
-import com.frigocezar.logistica.Docs.MotoristaControllerDoc;
+import com.frigocezar.logistica.docs.MotoristaControllerDoc;
 import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.service.MotoristaService;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.frigocezar.logistica.Docs;
+package com.frigocezar.logistica.docs;
 
 import com.frigocezar.logistica.dto.VeiculoDTO;
 import io.swagger.v3.oas.annotations.Operation;
