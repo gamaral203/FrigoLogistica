@@ -1,6 +1,7 @@
 package com.frigocezar.logistica.service;
 
 import com.frigocezar.logistica.dto.VeiculoDTO;
+import com.frigocezar.logistica.exceptions.BusinessException;
 import com.frigocezar.logistica.exceptions.VeiculoNotFoundException;
 import com.frigocezar.logistica.mapper.VeiculoMapper;
 import com.frigocezar.logistica.model.VeiculoModel;
@@ -27,6 +28,8 @@ public class VeiculoService {
 
     public VeiculoDTO cadastrarVeiculo(VeiculoDTO veiculoDTO) {
         log.debug("Iniciando cadastro de Veiculo: {} ", veiculoDTO);
+
+        validarCadastro(veiculoDTO);
 
         VeiculoModel veiculoModel = veiculoMapper.map(veiculoDTO);
         VeiculoModel veiculo = veiculoRepository.save(veiculoModel);
@@ -92,5 +95,12 @@ public class VeiculoService {
         veiculoRepository.deleteById(id);
 
         log.info("Veiculo deletado com sucesso id: {}", id);
+    }
+
+    private void validarCadastro(VeiculoDTO veiculoDTO) {
+        if (veiculoRepository.existsByPlaca(veiculoDTO.getPlaca())) {
+            log.warn("Placa já cadastrada");
+            throw new BusinessException();
+        }
     }
 }

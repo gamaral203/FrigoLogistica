@@ -58,7 +58,7 @@ public class VeiculoController implements VeiculoControllerDoc {
 
     }
 
-    @PutMapping("/EditarPorId/{id}")
+    @PutMapping("/editarPorId/{id}")
     public ResponseEntity<VeiculoDTO> editarVeiculoPorID(@PathVariable @Valid Long id,
                                                          @RequestBody VeiculoDTO veiculo) {
 
