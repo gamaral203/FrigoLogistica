@@ -100,7 +100,15 @@ public class VeiculoService {
     private void validarCadastro(VeiculoDTO veiculoDTO) {
         if (veiculoRepository.existsByPlaca(veiculoDTO.getPlaca())) {
             log.warn("Placa já cadastrada");
-            throw new BusinessException();
+            throw new BusinessException(
+                    "Essa placa já foi cadastrada"
+            );
+        }
+        if (veiculoRepository.existsByRenavam(veiculoDTO.getRenavam())) {
+            log.warn("Renavam já cadastrado");
+            throw  new BusinessException(
+                    "esse renavam já está cadastrado"
+            );
         }
     }
 }
