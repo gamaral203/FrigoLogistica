@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 public class DespesasService {
@@ -27,5 +30,14 @@ public class DespesasService {
         log.info("Despesa criada: {}", despesas);
 
         return despesasMapper.map(despesas);
+    }
+
+    public List<DespesasDTO> listaDespesas() {
+        log.debug("Listando despesas");
+        List<DespesasModel> despesas = despesasRepository.findAll();
+        log.info("Quantidade de despesas encontradas {}", despesas.size());
+        return despesas.stream()
+                .map(despesasMapper::map)
+                .collect(Collectors.toList());
     }
 }
