@@ -47,10 +47,44 @@ public class DespesasService {
         log.debug("Buscando despesa com id {}", id);
         DespesasModel despesasModel = despesasRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.info("Despesa não encontrada {}", id);
+                    log.warn("Despesa não encontrada {}", id);
                     return new DespesasNotFoundException();
                 });
         log.info("Despesa encontrada, id: {} ", id);
         return despesasMapper.map(despesasModel);
+    }
+
+    public DespesasDTO atualizarDespesa(Long id, DespesasDTO despesasDto) {
+        log.debug("Atualizando despesa com id {}", id);
+
+        DespesasModel despesasModel = despesasRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Despesa não encontrada {}", id);
+                    return new DespesasNotFoundException();
+                });
+
+        despesasModel.setDescricao(despesasDto.getDescricao());
+        despesasModel.setDataDespesa(despesasDto.getDataDespesa());
+        despesasModel.setFormaPagamento(despesasDto.getFormaPagamento());
+        despesasModel.setPreco(despesasDto.getPreco());
+        despesasModel.setStatus(despesasDto.getStatus());
+        despesasModel.setTipoDespesa(despesasDto.getTipoDespesa());
+
+        log.info("Despesa atualizada com id {}", id);
+        despesasRepository.save(despesasModel);
+
+        return despesasMapper.map(despesasModel);
+
+    }
+
+    public void deletarDespesa(Long id) {
+        log.debug("Excluindo despesa com id {}", id);
+        DespesasModel despesasModel = despesasRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Despesa não encontrada {}", id);
+                    return new DespesasNotFoundException();
+                });
+        despesasRepository.delete(despesasModel);
+        log.info("Despesa excluida com id {}", id);
     }
 }
