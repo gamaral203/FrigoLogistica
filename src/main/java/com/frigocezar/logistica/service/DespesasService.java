@@ -64,7 +64,7 @@ public class DespesasService {
                 .collect(Collectors.toList());
     }
 
-    public DespesasDTO buscarDespesa(Long id) {
+    public DespesasDTO buscarDespesaPorId(Long id) {
         log.debug("Buscando despesa com id {}", id);
         DespesasModel despesasModel = despesasRepository.findById(id)
                 .orElseThrow(() -> {
