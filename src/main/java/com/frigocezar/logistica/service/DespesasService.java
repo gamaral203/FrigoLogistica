@@ -3,9 +3,15 @@ package com.frigocezar.logistica.service;
 import com.frigocezar.logistica.dto.DespesasDTO;
 import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.exceptions.DespesasNotFoundException;
+import com.frigocezar.logistica.exceptions.MotoristaNotFoundException;
+import com.frigocezar.logistica.exceptions.VeiculoNotFoundException;
 import com.frigocezar.logistica.mapper.DespesasMapper;
 import com.frigocezar.logistica.model.DespesasModel;
+import com.frigocezar.logistica.model.MotoristaModel;
+import com.frigocezar.logistica.model.VeiculoModel;
 import com.frigocezar.logistica.repository.DespesasRepository;
+import com.frigocezar.logistica.repository.MotoristaRepository;
+import com.frigocezar.logistica.repository.VeiculoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,16 +25,31 @@ public class DespesasService {
 
     private final DespesasRepository despesasRepository;
     private final DespesasMapper despesasMapper;
+    private final MotoristaRepository motoristaRepository;
+    private final VeiculoRepository veiculoRepository;
 
-    public DespesasService(DespesasRepository despesasRepository, DespesasMapper despesasMapper) {
+    public DespesasService(DespesasRepository despesasRepository, DespesasMapper despesasMapper, MotoristaRepository motoristaRepository, VeiculoRepository veiculoRepository) {
         this.despesasRepository = despesasRepository;
         this.despesasMapper = despesasMapper;
+        this.motoristaRepository = motoristaRepository;
+        this.veiculoRepository = veiculoRepository;
     }
 
     public DespesasDTO novaDespesa(DespesasDTO despesasDTO) {
         log.debug("Criando nova despesa {}", despesasDTO);
+
+        MotoristaModel motorista = motoristaRepository.findById(despesasDTO.getMotoristaId())
+                .orElseThrow(MotoristaNotFoundException::new);
+
+        VeiculoModel veiculo = veiculoRepository.findById(despesasDTO.getVeiculoId())
+                .orElseThrow(VeiculoNotFoundException::new);
+
         DespesasModel despesasModel = despesasMapper.map(despesasDTO);
+
+        despesasModel.setMotorista(motorista);
+        despesasModel.setVeiculo(veiculo);
         DespesasModel despesas = despesasRepository.save(despesasModel);
+
         log.info("Despesa criada: {}", despesas);
 
         return despesasMapper.map(despesas);
