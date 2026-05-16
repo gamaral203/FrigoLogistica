@@ -19,7 +19,7 @@ import java.util.List;
 public class VeiculoController implements VeiculoControllerDoc {
 
 
-    private VeiculoService veiculoService;
+    private final VeiculoService veiculoService;
 
     public VeiculoController(VeiculoService veiculoService) {
         this.veiculoService = veiculoService;

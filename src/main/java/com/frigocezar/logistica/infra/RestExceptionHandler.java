@@ -1,9 +1,6 @@
 package com.frigocezar.logistica.infra;
 
-import com.frigocezar.logistica.exceptions.BusinessException;
-import com.frigocezar.logistica.exceptions.DespesasNotFoundException;
-import com.frigocezar.logistica.exceptions.MotoristaNotFoundException;
-import com.frigocezar.logistica.exceptions.VeiculoNotFoundException;
+import com.frigocezar.logistica.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,5 +27,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DespesasNotFoundException.class)
     public ResponseEntity<String> despesasNotFoundExceptionHandler(DespesasNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<String> duplicateResourceException(DuplicateResourceException exception){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 }

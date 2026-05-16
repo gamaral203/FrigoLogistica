@@ -1,6 +1,8 @@
 package com.frigocezar.logistica.service;
 
 import com.frigocezar.logistica.dto.MotoristaDTO;
+import com.frigocezar.logistica.exceptions.BusinessException;
+import com.frigocezar.logistica.exceptions.DuplicateResourceException;
 import com.frigocezar.logistica.exceptions.MotoristaNotFoundException;
 import com.frigocezar.logistica.mapper.MotoristaMapper;
 import com.frigocezar.logistica.model.MotoristaModel;
@@ -27,12 +29,14 @@ public class MotoristaService {
 
     public MotoristaDTO cadastrarMotorista(MotoristaDTO motoristaDTO) {
         log.debug("Cadastrando motorista: {} ", motoristaDTO);
+        validarMotorista(motoristaDTO);
+
         MotoristaModel motoristaModel = motoristaMapper.map(motoristaDTO);
         MotoristaModel motorista = motoristaRepository.save(motoristaModel);
+
         log.info("Motorista cadastrado com sucesso. id: {} ", motorista.getId());
         return motoristaMapper.map(motorista);
     }
-
 
 
     public List<MotoristaDTO> listarMotoristas() {
@@ -45,7 +49,6 @@ public class MotoristaService {
                 .map(motoristaMapper::map)
                 .collect(Collectors.toList());
     }
-
 
 
     public MotoristaDTO buscarMotoristaPorId(Long id) {
@@ -91,5 +94,17 @@ public class MotoristaService {
                 });
         motoristaRepository.deleteById(id);
         log.info("Motorista deletado com sucesso. id: {}", id);
+    }
+
+    private void validarMotorista(MotoristaDTO motoristaDTO) {
+        log.debug("Validando motorista: {}", motoristaDTO);
+        if (motoristaRepository.existsByCnh(motoristaDTO.getCnh())) {
+            log.warn("CNH já cadastrada");
+            throw new DuplicateResourceException("CNH já cadastrada");
+        }
+        if(motoristaRepository.existsByCpf(motoristaDTO.getCpf())) {
+            log.warn("CPF já cadastrado");
+            throw new DuplicateResourceException("CPF já cadastrado");
+        }
     }
 }

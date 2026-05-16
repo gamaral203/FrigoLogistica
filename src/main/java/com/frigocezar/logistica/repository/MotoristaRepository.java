@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MotoristaRepository extends JpaRepository<MotoristaModel, Long> {
+
+    boolean existsByCpf(String cpf);
+    boolean existsByCnh(String cnh);
 }
