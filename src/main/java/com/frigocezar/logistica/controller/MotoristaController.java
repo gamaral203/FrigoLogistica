@@ -29,7 +29,7 @@ public class MotoristaController implements MotoristaControllerDoc {
     @PostMapping("/cadastrar")
     public ResponseEntity<MotoristaDTO> cadastrarMotorista(@RequestBody @Valid MotoristaDTO motorista) {
 
-        log.info("cadastrando Motorista: {} ", motorista);
+        log.debug("cadastrando Motorista: {} ", motorista);
 
         MotoristaDTO motoristaDTO = motoristaService.cadastrarMotorista(motorista);
 
@@ -42,7 +42,7 @@ public class MotoristaController implements MotoristaControllerDoc {
     @GetMapping("/listar")
     public ResponseEntity<List<MotoristaDTO>> listarMotoristas() {
 
-        log.info("Listando motoristas: ");
+        log.debug("Listando motoristas: ");
 
         List<MotoristaDTO> motoristas = motoristaService.listarMotoristas();
 
@@ -52,23 +52,25 @@ public class MotoristaController implements MotoristaControllerDoc {
     }
 
     @GetMapping("buscarPorId/{id}")
-    public ResponseEntity<MotoristaDTO> buscarMotoristaPorId(@PathVariable Long id) {
-        log.info("Buscando motorista por ID: {}", id);
+    public ResponseEntity<MotoristaDTO> buscarMotoristaPorId(@Positive @PathVariable Long id) {
+        log.debug("Buscando motorista por ID: {}", id);
         MotoristaDTO motoristaDTO = motoristaService.buscarMotoristaPorId(id);
+        log.info("motorista por ID: {}", motoristaDTO);
         return ResponseEntity.ok(motoristaDTO);
     }
 
     @PutMapping("atualizarPorId/{id}")
     public ResponseEntity<MotoristaDTO> atualizarMotorista(@PathVariable @Positive Long id,
                                                            @RequestBody @Valid MotoristaDTO motoristaDTO) {
-        log.info("Atualizando Motorista: {}", id);
+        log.debug("Atualizando Motorista: {}", id);
         MotoristaDTO motoristaAtualizado = motoristaService.atualizarMotoristaPorId(id, motoristaDTO);
+        log.info("Motorista atualizado: {}", motoristaAtualizado.getId());
         return ResponseEntity.ok(motoristaAtualizado);
     }
 
     @DeleteMapping("/deletarPorId/{id}")
-    public ResponseEntity<String> deletarMotoristaPorId(@PathVariable Long id) {
-        log.info("Deletando motorista por ID: {}", id);
+    public ResponseEntity<String> deletarMotoristaPorId(@PathVariable @Positive Long id) {
+        log.debug("Deletando motorista por ID: {}", id);
 
         motoristaService.deletarMotoristaPorId(id);
 
