@@ -39,7 +39,7 @@ public interface MotoristaControllerDoc {
             @ApiResponse(responseCode = "200", description = "Motorista encontrado"),
             @ApiResponse(responseCode = "404", description = "Motorista não encontrado")
     })
-    ResponseEntity<MotoristaDTO> buscarMotoristaPorId(@PathVariable Long id);
+    ResponseEntity<MotoristaDTO> buscarMotoristaPorId(@PathVariable @Positive Long id);
 
 
     @Operation(summary = "Atualizar motorista por Id", description = "Verifica se o motorista existe e atualiza seus dados")
@@ -57,5 +57,5 @@ public interface MotoristaControllerDoc {
             @ApiResponse(responseCode = "204", description = "Deletado com sucesso"),
             @ApiResponse(responseCode = "404", description = "Motorista não encontrado")
     })
-    ResponseEntity<String> deletarMotoristaPorId(@PathVariable Long id);
+    ResponseEntity<String> deletarMotoristaPorId(@PathVariable @Positive Long id);
 }
