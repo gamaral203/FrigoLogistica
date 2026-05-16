@@ -1,5 +1,6 @@
 package com.frigocezar.logistica.controller;
 
+import com.frigocezar.logistica.docs.DespesasControllerDoc;
 import com.frigocezar.logistica.dto.DespesasDTO;
 import com.frigocezar.logistica.dto.MotoristaDTO;
 import com.frigocezar.logistica.service.DespesasService;
@@ -17,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/despesas")
 @Validated
-public class    DespesasController {
+public class DespesasController implements DespesasControllerDoc {
 
     private final DespesasService despesasService;
 
@@ -26,7 +27,7 @@ public class    DespesasController {
     }
 
     @PostMapping("/cadastrarDespesa")
-    public ResponseEntity<DespesasDTO> cadastrarDespesa(@RequestBody @Validated DespesasDTO despesas) {
+    public ResponseEntity<DespesasDTO> cadastrarDespesa(@RequestBody @Valid DespesasDTO despesas) {
 
         log.info("Cadastrando despesa: {}", despesas);
         DespesasDTO despesasDTO = despesasService.novaDespesa(despesas);
