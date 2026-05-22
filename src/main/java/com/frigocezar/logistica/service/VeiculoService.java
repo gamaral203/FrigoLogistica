@@ -1,7 +1,7 @@
 package com.frigocezar.logistica.service;
 
 import com.frigocezar.logistica.dto.VeiculoDTO;
-import com.frigocezar.logistica.exceptions.BusinessException;
+import com.frigocezar.logistica.exceptions.DuplicateResourceException;
 import com.frigocezar.logistica.exceptions.VeiculoNotFoundException;
 import com.frigocezar.logistica.mapper.VeiculoMapper;
 import com.frigocezar.logistica.model.VeiculoModel;
@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -100,13 +99,13 @@ public class VeiculoService {
     private void validarCadastro(VeiculoDTO veiculoDTO) {
         if (veiculoRepository.existsByPlaca(veiculoDTO.getPlaca())) {
             log.warn("Placa já cadastrada");
-            throw new BusinessException(
+            throw new DuplicateResourceException(
                     "Essa placa já foi cadastrada"
             );
         }
         if (veiculoRepository.existsByRenavam(veiculoDTO.getRenavam())) {
             log.warn("Renavam já cadastrado");
-            throw  new BusinessException(
+            throw  new DuplicateResourceException(
                     "esse renavam já está cadastrado"
             );
         }

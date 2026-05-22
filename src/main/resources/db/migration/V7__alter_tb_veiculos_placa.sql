@@ -1,0 +1,2 @@
+ALTER TABLE tb_veiculo
+ALTER COLUMN placa TYPE VARCHAR(7);

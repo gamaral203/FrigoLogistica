@@ -20,10 +20,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Veiculo não encontrado");
     }
 
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<String> businessExceptionHandler(BusinessException exception){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-    }
     @ExceptionHandler(DespesasNotFoundException.class)
     public ResponseEntity<String> despesasNotFoundExceptionHandler(DespesasNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());

@@ -21,7 +21,7 @@ public class VeiculoDTO {
     private String tipoVeiculo;
 
     @NotNull(message = "A placa é obrigatória")
-    @Size(min = 6,max = 6)
+    @Size(min = 7,max = 7)
     private String placa;
 
     @NotNull(message = "A marca do veículo é obrigatória")

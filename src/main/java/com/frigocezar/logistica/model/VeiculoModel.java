@@ -21,7 +21,7 @@ public class VeiculoModel {
     @Column(name = "tipo_veiculo", nullable = false)
     private String tipoVeiculo;
 
-    @Column(name = "placa", length = 6, nullable = false, unique = true)
+    @Column(name = "placa", length = 7, nullable = false, unique = true)
     private String placa;
 
     @Column(name = "marca", nullable = false)

@@ -1,7 +1,6 @@
 package com.frigocezar.logistica.service;
 
 import com.frigocezar.logistica.dto.MotoristaDTO;
-import com.frigocezar.logistica.exceptions.BusinessException;
 import com.frigocezar.logistica.exceptions.DuplicateResourceException;
 import com.frigocezar.logistica.exceptions.MotoristaNotFoundException;
 import com.frigocezar.logistica.mapper.MotoristaMapper;
@@ -11,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
