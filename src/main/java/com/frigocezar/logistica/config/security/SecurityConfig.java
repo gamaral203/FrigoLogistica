@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore()
                 .build();
 
     }
