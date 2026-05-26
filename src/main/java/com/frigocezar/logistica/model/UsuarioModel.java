@@ -26,11 +26,20 @@ public class UsuarioModel implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(unique = true,  nullable = false)
     private String login;
 
+    @Column(nullable = false)
     private String senha;
 
+    @Enumerated(EnumType.STRING)
     private UsuarioRole role;
+
+    public UsuarioModel(String login, String senha, UsuarioRole role) {
+        this.login = login;
+        this.senha = senha;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
