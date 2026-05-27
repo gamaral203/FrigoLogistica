@@ -1,9 +1,11 @@
 package com.frigocezar.logistica.controller;
 
 import com.frigocezar.logistica.dto.AutenticacaoDTO;
+import com.frigocezar.logistica.dto.LoginResponseDTO;
 import com.frigocezar.logistica.dto.RegistroDTO;
 import com.frigocezar.logistica.model.UsuarioModel;
 import com.frigocezar.logistica.repository.UsuarioRepository;
+import com.frigocezar.logistica.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
+    private final TokenService tokenService;
     private AuthenticationManager authenticationManager;
     private UsuarioRepository usuarioRepository;
 
-    public AuthController(AuthenticationManager authenticationManager, UsuarioRepository usuarioRepository) {
+    public AuthController(AuthenticationManager authenticationManager, UsuarioRepository usuarioRepository, TokenService tokenService) {
         this.authenticationManager = authenticationManager;
         this.usuarioRepository = usuarioRepository;
+        this.tokenService = tokenService;
     }
 
     @PostMapping("/login")
@@ -31,7 +35,9 @@ public class AuthController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(auth.login(), auth.senha());
         var authenticate = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.gerarToken((UsuarioModel) authenticate.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/registrar")

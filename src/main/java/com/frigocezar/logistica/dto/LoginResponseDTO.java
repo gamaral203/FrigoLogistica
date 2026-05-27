@@ -1,4 +1,4 @@
 package com.frigocezar.logistica.dto;
 
-public record LoginResponseDTO() {
+public record LoginResponseDTO(String Token) {
 }
