@@ -26,6 +26,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .cors(cors ->{})
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(http -> http.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -36,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .requestMatchers(HttpMethod.DELETE, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .anyRequest().authenticated()
+
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
