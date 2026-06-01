@@ -26,17 +26,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .cors(cors ->{})
+                .cors(cors -> {
+                })
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(http -> http.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/registrar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .requestMatchers(HttpMethod.PUT, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .requestMatchers(HttpMethod.DELETE, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/ia/pergunta").permitAll()
+                        .anyRequest().permitAll()
 
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
