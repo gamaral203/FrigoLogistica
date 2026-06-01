@@ -1,5 +1,6 @@
 package com.frigocezar.logistica.repository;
 
+import com.frigocezar.logistica.enums.TipoDespesa;
 import com.frigocezar.logistica.model.DespesasModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -37,13 +38,37 @@ public interface DespesasRepository extends JpaRepository<DespesasModel, Long> {
     );
 
     @Query("""
-        SELECT COALESCE(SUM(d.preco),0)
+        SELECT COALESCE(SUM(d.preco), 0)
         FROM DespesasModel d
         WHERE d.tipoDespesa = com.frigocezar.logistica.enums.TipoDespesa.COMBUSTIVEL
         AND MONTH(d.dataDespesa) = :mes
         AND YEAR(d.dataDespesa) = :ano
     """)
     BigDecimal gastoCombustivel(
+            @Param("mes") Integer mes,
+            @Param("ano") Integer ano
+    );
+
+    @Query("""
+        SELECT COALESCE(SUM(d.preco), 0)
+        FROM DespesasModel d
+        WHERE d.tipoDespesa = :tipo
+        AND MONTH(d.dataDespesa) = :mes
+        AND YEAR(d.dataDespesa) = :ano
+    """)
+    BigDecimal gastoPorTipo(
+            @Param("tipo") String tipo,
+            @Param("mes") Integer mes,
+            @Param("ano") Integer ano
+    );
+
+    @Query("""
+        SELECT COALESCE(SUM(d.preco), 0)
+        FROM DespesasModel d
+        WHERE MONTH(d.dataDespesa) = :mes
+        AND YEAR(d.dataDespesa) = :ano
+    """)
+    BigDecimal gastoTotal(
             @Param("mes") Integer mes,
             @Param("ano") Integer ano
     );

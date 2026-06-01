@@ -43,7 +43,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .requestMatchers(HttpMethod.DELETE, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .requestMatchers(HttpMethod.POST, "/api/ia/pergunta").permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
 
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
