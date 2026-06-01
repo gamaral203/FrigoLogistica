@@ -1,3 +1,7 @@
+openai:
+  api-key: ${API_KEY}
+  model: gpt-4o-mini
+
 spring:
   application:
     name: logistica
@@ -20,3 +24,5 @@ api:
   security:
     token:
       secret: ${JWT_SECRET:my-secret-key}
+
+
