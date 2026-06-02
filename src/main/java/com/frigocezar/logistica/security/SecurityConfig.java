@@ -42,7 +42,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .requestMatchers(HttpMethod.PUT, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
                         .requestMatchers(HttpMethod.DELETE, "/despesas", "/motoristas", "/despesas").hasRole("Admin")
-                        .requestMatchers(HttpMethod.POST, "/api/ia/pergunta").permitAll()
                         .anyRequest().authenticated()
 
                 )
