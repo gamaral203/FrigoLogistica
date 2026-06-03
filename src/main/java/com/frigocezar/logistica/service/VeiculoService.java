@@ -6,6 +6,7 @@ import com.frigocezar.logistica.exceptions.VeiculoNotFoundException;
 import com.frigocezar.logistica.mapper.VeiculoMapper;
 import com.frigocezar.logistica.model.VeiculoModel;
 import com.frigocezar.logistica.repository.VeiculoRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class VeiculoService {
     }
 
 
+    @Transactional
     public VeiculoDTO cadastrarVeiculo(VeiculoDTO veiculoDTO) {
         log.debug("Iniciando cadastro de Veiculo: {} ", veiculoDTO);
 
