@@ -8,6 +8,7 @@ import com.frigocezar.logistica.model.MotoristaModel;
 import com.frigocezar.logistica.repository.MotoristaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class MotoristaService {
         this.motoristaMapper = motoristaMapper;
     }
 
-
+    @Transactional
     public MotoristaDTO cadastrarMotorista(MotoristaDTO motoristaDTO) {
         log.debug("Cadastrando motorista: {} ", motoristaDTO);
         validarMotorista(motoristaDTO);
@@ -37,6 +38,7 @@ public class MotoristaService {
     }
 
 
+    @Transactional(readOnly = true)
     public List<MotoristaDTO> listarMotoristas() {
 
         log.debug("Listando motoristas");
@@ -49,6 +51,7 @@ public class MotoristaService {
     }
 
 
+    @Transactional(readOnly = true)
     public MotoristaDTO buscarMotoristaPorId(Long id) {
         log.debug("Buscando motorista por id: {}", id);
 
@@ -62,6 +65,7 @@ public class MotoristaService {
     }
 
 
+    @Transactional
     public MotoristaDTO atualizarMotoristaPorId(Long id, MotoristaDTO motoristaDTO) {
         log.debug("Atualizando motorista por id: {}", id);
 
@@ -83,6 +87,7 @@ public class MotoristaService {
     }
 
 
+    @Transactional
     public void deletarMotoristaPorId(Long id) {
         log.debug("Deletando motorista por id: {}", id);
         MotoristaModel motorista = motoristaRepository.findById(id)
@@ -93,6 +98,7 @@ public class MotoristaService {
         motoristaRepository.deleteById(id);
         log.info("Motorista deletado com sucesso. id: {}", id);
     }
+
 
     private void validarMotorista(MotoristaDTO motoristaDTO) {
         log.debug("Validando motorista: {}", motoristaDTO);

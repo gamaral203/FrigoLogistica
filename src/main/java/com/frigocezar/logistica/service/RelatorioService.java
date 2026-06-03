@@ -4,6 +4,7 @@ import com.frigocezar.logistica.repository.DespesasRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,6 +17,7 @@ public class RelatorioService {
 
     private final DespesasRepository despesasRepository;
 
+
     private static final Map<String, String> LABELS_TIPO = Map.of(
             "COMBUSTIVEL",  "Combustível",
             "PEDAGIO",      "Pedágios",
@@ -26,6 +28,7 @@ public class RelatorioService {
             "OUTROS",       "Outros"
     );
 
+    @Transactional
     public String motoristaMaisDespesas(Integer mes, Integer ano) {
         log.debug("Buscando motorista com mais despesas: mes={}, ano={}", mes, ano);
 

@@ -3,6 +3,7 @@ package com.frigocezar.logistica.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frigocezar.logistica.dto.IntencaoDTO;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +29,7 @@ public class OpenAIService {
     @Value("${openai.model}")
     private String model;
 
+    @Transactional
     public IntencaoDTO interpretar(String pergunta) {
 
         int mesAtual = LocalDate.now().getMonthValue();
