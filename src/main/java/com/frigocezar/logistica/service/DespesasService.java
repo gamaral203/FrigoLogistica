@@ -15,6 +15,7 @@ import com.frigocezar.logistica.repository.VeiculoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +36,7 @@ public class DespesasService {
         this.veiculoRepository = veiculoRepository;
     }
 
+    @Transactional
     public DespesasDTO novaDespesa(DespesasDTO despesasDTO) {
         log.debug("Criando nova despesa {}", despesasDTO);
 
@@ -55,6 +57,7 @@ public class DespesasService {
         return despesasMapper.map(despesas);
     }
 
+    @Transactional(readOnly = true)
     public List<DespesasDTO> listaDespesas() {
         log.debug("Listando despesas");
         List<DespesasModel> despesas = despesasRepository.findAll();
@@ -64,6 +67,7 @@ public class DespesasService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public DespesasDTO buscarDespesaPorId(Long id) {
         log.debug("Buscando despesa com id {}", id);
         DespesasModel despesasModel = despesasRepository.findById(id)
@@ -75,6 +79,7 @@ public class DespesasService {
         return despesasMapper.map(despesasModel);
     }
 
+    @Transactional
     public DespesasDTO atualizarDespesa(Long id, DespesasDTO despesasDto) {
         log.debug("Atualizando despesa com id {}", id);
 
@@ -98,6 +103,7 @@ public class DespesasService {
 
     }
 
+    @Transactional
     public void deletarDespesa(Long id) {
         log.debug("Excluindo despesa com id {}", id);
         DespesasModel despesasModel = despesasRepository.findById(id)

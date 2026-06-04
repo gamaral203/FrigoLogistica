@@ -6,6 +6,7 @@ import com.frigocezar.logistica.exceptions.VeiculoNotFoundException;
 import com.frigocezar.logistica.mapper.VeiculoMapper;
 import com.frigocezar.logistica.model.VeiculoModel;
 import com.frigocezar.logistica.repository.VeiculoRepository;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional
 public class VeiculoService {
 
     private final VeiculoMapper veiculoMapper;
@@ -25,6 +27,7 @@ public class VeiculoService {
     }
 
 
+    @Transactional
     public VeiculoDTO cadastrarVeiculo(VeiculoDTO veiculoDTO) {
         log.debug("Iniciando cadastro de Veiculo: {} ", veiculoDTO);
 
@@ -38,6 +41,7 @@ public class VeiculoService {
     }
 
 
+    @Transactional(readOnly = true)
     public List<VeiculoDTO> listarVeiculos() {
         log.debug("Iniciando listagem de Veiculos");
         List<VeiculoModel> veiculos = veiculoRepository.findAll();
@@ -48,6 +52,7 @@ public class VeiculoService {
     }
 
 
+    @Transactional(readOnly = true)
     public VeiculoDTO buscarVeiculoPorId(Long id) {
         log.debug("Buscando veiculo por id: {}", id);
         VeiculoModel veiculo = veiculoRepository.findById(id)
@@ -58,6 +63,7 @@ public class VeiculoService {
         return veiculoMapper.map(veiculo);
     }
 
+    @Transactional
     public VeiculoDTO atualizarVeiculo(Long id, VeiculoDTO veiculoDTO) {
         log.debug("Atualizando Veiculo com id: {}", id);
 
@@ -83,6 +89,7 @@ public class VeiculoService {
 
     }
 
+    @Transactional
     public void deletarVeiculo(Long id) {
         log.debug("Deletando Veiculo com id: {}", id);
 

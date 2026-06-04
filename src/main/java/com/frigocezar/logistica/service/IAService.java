@@ -4,6 +4,7 @@ import com.frigocezar.logistica.dto.IntencaoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -13,6 +14,7 @@ public class IAService {
     private final OpenAIService openAIService;
     private final RelatorioService relatorioService;
 
+    @Transactional
     public String processar(String pergunta) {
 
         if (pergunta == null || pergunta.isBlank()) {
