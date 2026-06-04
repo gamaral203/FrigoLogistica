@@ -36,17 +36,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
-        Map<String, String> erros = new HashMap<>();
-
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                erros.put(error.getField(), error.getDefaultMessage())
-        );
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros);
-    }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericError(Exception ex) {
         log.error("Erro inesperado: {}", ex.getMessage(), ex);
