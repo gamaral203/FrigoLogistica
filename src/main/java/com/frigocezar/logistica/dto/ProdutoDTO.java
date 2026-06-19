@@ -1,52 +1,41 @@
-package com.frigocezar.logistica.model;
+package com.frigocezar.logistica.dto;
 
 import com.frigocezar.logistica.enums.TipoProduto;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
-@Entity
-@Table(name = "tb_produto")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProdutoModel {
+public class ProdutoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 255, nullable = false, name = "nome")
+    @NotNull(message = "o nome é obrigatório")
+    @Size(min = 3, max = 255)
     private String nome;
 
-    @Column(length = 255, name = "descricao")
+    @Size(min = 3, max = 255)
     private String descricao;
 
-    @Column(nullable = false, name = "preco")
+    @NotNull(message = "o preço é obrigatório")
     @DecimalMin(value = "0.01", message = "o preço deve ser maior que 0")
     private BigDecimal preco;
 
-    @Column(nullable = false, name = "quantidade_estoque")
+    @NotNull(message = "a quantidade é obrigatória")
     @Min(value = 0, message = "a quantidade no estoque deve ser positiva")
     private Integer quantidadeEstoque;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "tipo_produto")
+    @NotNull(message = "o tipo do produto é obrigatório")
     private TipoProduto tipoProduto;
 
-    private LocalDate dataCadastro;
-
-    @PrePersist
-    public void prePersist() {
-        this.dataCadastro = LocalDate.now();
-
-    }
 }
