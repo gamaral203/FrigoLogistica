@@ -1,6 +1,6 @@
 package com.frigocezar.logistica.enums;
 
-public enum TipoDespesas {
+public enum TipoProduto {
 
     ALIMENTO,
     BEBIDA,
