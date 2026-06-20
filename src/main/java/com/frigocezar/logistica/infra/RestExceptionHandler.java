@@ -42,5 +42,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Ocorreu um erro interno. Tente novamente mais tarde.");
     }
+    @ExceptionHandler(ProdutoNotFoundException.class)
+    public ResponseEntity<String> produtoNotFound(ProdutoNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
 
 }
