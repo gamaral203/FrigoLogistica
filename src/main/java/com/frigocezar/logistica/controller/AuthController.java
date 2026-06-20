@@ -1,6 +1,5 @@
 package com.frigocezar.logistica.controller;
 
-package com.frigocezar.logistica.controller;
 
 import com.frigocezar.logistica.dto.AutenticacaoDTO;
 import com.frigocezar.logistica.dto.LoginResponseDTO;

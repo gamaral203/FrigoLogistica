@@ -2,6 +2,7 @@ package com.frigocezar.logistica.controller;
 
 import java.util.List;
 
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -63,7 +64,7 @@ public class ProdutoController implements com.frigocezar.logistica.docs.ProdutoC
     }
 
     @PutMapping("/editarPorId/{id}")
-    public ResponseEntity<ProdutoDTO> editarPorId(@PathVariable Long id, @RequestBody @Valid ProdutoDTO produto) {
+    public ResponseEntity<ProdutoDTO> editarPorId(@PathVariable @Positive Long id, @RequestBody @Valid ProdutoDTO produto) {
         log.debug("Editando produto id={} payload={}", id, produto);
         ProdutoDTO produtoDTO = produtoService.editarProduto(id, produto);
         log.info("Produto editado id={}", produtoDTO != null ? produtoDTO.getId() : null);
