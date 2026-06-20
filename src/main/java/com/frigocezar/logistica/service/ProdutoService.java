@@ -53,7 +53,7 @@ public class ProdutoService {
         return produtoMapper.map(produto);
     }
 
-    public ProdutoDTO EditarProduto(Long id, ProdutoDTO produtoDTO) {
+    public ProdutoDTO editarProduto(Long id, ProdutoDTO produtoDTO) {
         log.debug("Editando produto por id: {}", id);
         ProdutoModel produto = produtoRepository.findById(id)
                 .orElseThrow(() -> {

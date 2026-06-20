@@ -40,9 +40,9 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/registrar").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/despesas", "/motoristas", "/veiculos").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/despesas", "/motoristas", "/veiculos").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/despesas", "/motoristas", "/veiculos").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/despesas", "/motoristas", "/veiculos", "/produto").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/despesas", "/motoristas", "/veiculos","/produto").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/despesas", "/motoristas", "/veiculos","/produto").hasRole("ADMIN")
                         .anyRequest().authenticated()
 
                 )
